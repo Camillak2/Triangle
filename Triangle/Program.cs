@@ -10,48 +10,61 @@ namespace Triangle
     {
         static void Main(string[] args)
         {
-         
-                Console.WriteLine("Введите значения сторон треугольника:");
-                Console.Write("Сторона A: ");
-                double a = Convert.ToDouble(Console.ReadLine());
-                Console.Write("Сторона B: ");
-                double b = Convert.ToDouble(Console.ReadLine());
-                Console.Write("Сторона C: ");
-                double c = Convert.ToDouble(Console.ReadLine());
+            double a, b, c;
+            double p;
+            double S;
 
-                double perimetr2 = (a + b + c) / 2;
-                double square = Math.Sqrt(perimetr2 * (perimetr2 - a) * (perimetr2 - b) * (perimetr2 - c));
-           
+            while (true)
+            {
+                Console.WriteLine("Введите длины сторон треугольника:");
 
-                if (a <= 0 || b <= 0 || c <= 0)
+                if (!double.TryParse(Console.ReadLine(), out a) || a <= 0)
                 {
-                    Console.WriteLine("У треугольника все стороны должны быть положительными!");
+                    Console.WriteLine("Некорректное значение для стороны a. Введите корректное значение.");
+                    continue;
                 }
-                else
-                {
-                    if (a + b < c || a + c < b || c + b < a)
-                    {
-                        Console.WriteLine("Такого треугольника не существует.");                        
-                    }
-                    else
-                    {
-                        if (Math.Pow(a, 2) + Math.Pow(b, 2) == Math.Pow(c, 2) || Math.Pow(a, 2) + Math.Pow(c, 2) == Math.Pow(b, 2) || Math.Pow(c, 2) + Math.Pow(b, 2) == Math.Pow(a, 2))
-                        {
-                            Console.WriteLine("Треугольник прямоугольный.");
-                        }
-                        else if (Math.Pow(a, 2) + Math.Pow(b, 2) < Math.Pow(c, 2) || Math.Pow(a, 2) + Math.Pow(c, 2) < Math.Pow(b, 2) || Math.Pow(c, 2) + Math.Pow(b, 2) < Math.Pow(a, 2))
-                        {
-                            Console.WriteLine("Треугольник остроугольный.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Треугольник тупоугольный.");
-                        }
 
-                        Console.WriteLine("Площадь треугольника: " + square);
-                    }
+                if (!double.TryParse(Console.ReadLine(), out b) || b <= 0)
+                {
+                    Console.WriteLine("Некорректное значение для стороны b. Введите корректное значение.");
+                    continue;
                 }
-                      
+
+                if (!double.TryParse(Console.ReadLine(), out c) || c <= 0)
+                {
+                    Console.WriteLine("Некорректное значение для стороны c. Введите корректное значение.");
+                    continue;
+                }
+
+                if (a + b <= c || a + c <= b || b + c <= a)
+                {
+                    Console.WriteLine("Треугольник с такими сторонами не существует. Введите корректные значения.");
+                    continue;
+                }
+                break;
+            }
+
+            if (a == b && b == c)
+            {
+                Console.WriteLine("Треугольник равносторонний.");
+                p = (a + b + c) / 2;
+                S = Math.Sqrt(p * (p - a) * (p - b) * (p - c));
+                Console.WriteLine($"Площадь треугольника равна {S}.");
+            }
+            else if ((a == b && a !=c) || (b == c && a != c) || (a == c && b!= a))
+            {
+                Console.WriteLine("Треугольник равнобедренный.");
+                p = (a + b + c) / 2;
+                S = Math.Sqrt(p * (p - a) * (p - b) * (p - c));
+                Console.WriteLine($"Площадь треугольника равна {S}.");
+            }
+            else
+            {
+                Console.WriteLine("Треугольник разносторонний.");
+                p = (a + b + c) / 2;
+                S = Math.Sqrt(p * (p - a) * (p - b) * (p - c));
+                Console.WriteLine($"Площадь треугольника равна {S}.");
+            }
             Console.ReadKey();
         }
     }
